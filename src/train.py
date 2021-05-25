@@ -4,7 +4,7 @@ from sklearn import metrics
 from sklearn import tree
 
 def run(fold):
-    # read the tarin data with folds
+    # read the train data with folds
     df = pd.read_csv('../input/mnist_train_folds.csv')
 
     # training data is where kfold is not equal to provided fold 
@@ -20,11 +20,11 @@ def run(fold):
     x_train = df_train.drop('label', axis=1).values
     y_train = df_train.label.values
 
-    # similary, for validation
+    # similarly, for validation
     x_valid = df_valid.drop('label', axis=1).values
     y_valid = df_valid.label.values
 
-    # initialize a simple decison tree classifier from sklearn
+    # initialize a simple decision tree classifier from sklearn
     clf = tree.DecisionTreeClassifier()
 
     # fit the model on the training data
@@ -38,7 +38,7 @@ def run(fold):
     print(f"Fold={fold}, Accuracy={accuracy}")
 
     # save the model
-    joblib.dump(clf, f"../models/df_{fold}.bin")
+    joblib.dump(clf, f"../models/dt_{fold}.bin")
 
 
 if __name__ == '__main__':
