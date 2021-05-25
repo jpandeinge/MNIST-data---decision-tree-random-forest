@@ -19,3 +19,31 @@ def run(fold):
     # target is label column in the dataframe
     x_train = df_train.drop('label', axis=1).values
     y_train = df_train.label.values
+
+    # similary, for validation
+    x_valid = df_valid.drop('label', axis=1).values
+    y_valid = df_valid.label.values
+
+    # initialize a simple decison tree classifier from sklearn
+    clf = tree.DecisionTreeClassifier()
+
+    # fit the model on the training data
+    clf.fit(x_train, y_train)
+
+    # create predictions for validation samples
+    preds = clf.predict(x_valid)
+
+    # calculate % print accuracy 
+    accuracy = metrics.accuracy_score(y_valid, preds)
+    print(f"Fold={fold}, Accuracy={accuracy}")
+
+    # save the model
+    joblib.dump(clf, f"../models/df_{fold}.bin")
+
+
+if __name__ == '__main__':
+    run(fold=0)
+    run(fold=1)
+    run(fold=2)
+    run(fold=3)
+    run(fold=4)
